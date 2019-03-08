@@ -11,7 +11,6 @@ $i = 0;
 $offset = 0;
 while (true):
 	$i++;
-	$found = false;
 	print "Querying terms...";
 	$st1 = $pdo2->prepare(
 		"SELECT `t`.`id`,LOWER(`t`.`term`) AS `term` FROM
@@ -56,7 +55,7 @@ while (true):
 	$st1 = $st2 = $st3 = null;
 	
 
-	if ($found) {
+	if ($c > 0) {
 		$offset += $c;
 	} else {
 		print "Didn't find any new data...\n";

@@ -38,7 +38,6 @@ while (true):
 	$c = 0;
 	while ($r = $st1->fetch(PDO::FETCH_ASSOC)) {
 		$c++;
-		$found = true;
 		print "Collecting data...";
 		$st3->execute([":group_id" => $r["group_id"], "tmsg_id" => $r["reply_to_tmsg_id"]]);
 		if ($rr = $st3->fetch(PDO::FETCH_ASSOC)) {
@@ -72,7 +71,7 @@ while (true):
 	}
 
 	$st1 = $st2 = $st3 = null;
-	if ($found) {
+	if ($c > 0) {
 		$offset += $c;
 	} else {
 		print "Didn't find any new data...\n";
