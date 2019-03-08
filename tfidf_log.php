@@ -9,6 +9,7 @@ print "OK\n";
 
 $i = 0;
 $offset = 0;
+$lost_count = 0;
 while (true):
 	$i++;
 	print "Querying terms...";
@@ -59,6 +60,14 @@ while (true):
 		$offset += $c;
 	} else {
 		print "Didn't find any new data...\n";
+		$lost_count++;
+
+		if ($lost_count >= 60) {
+			print "Reached the max numbers of lost...\n";
+			print "Reset offset to 0...OK\n";
+			$offset = 0;
+			$lost_count = 0;
+		}
 	}
 
 	if (($i % 30) === 0) {
