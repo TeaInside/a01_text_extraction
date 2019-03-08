@@ -23,6 +23,7 @@ while (true):
 		"INSERT INTO `tf` (`tf_hash`,`term_id`, `all_text_id`, `value`, `created_at`, `updated_at`) VALUES (:tf_hash, :term_id, :all_text_id, :value, :created_at, NULL) ON DUPLICATE KEY UPDATE `value` = :value, `updated_at` = :created_at;"
 	);
 	$st1->execute();
+	print "OK\n";
 	$c = 0;
 	while ($r = $st1->fetch(PDO::FETCH_ASSOC)) {
 		$c++;
