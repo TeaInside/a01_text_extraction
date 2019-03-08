@@ -15,7 +15,7 @@ while (true):
 	print "Querying terms...";
 	$st1 = $pdo2->prepare(
 		"SELECT `t`.`id`,LOWER(`t`.`term`) AS `term` FROM
-			(SELECT `id` FROM `terms` WHERE `calculated` = '0' LIMIT 30 OFFSET {$offset}) AS `u`
+			(SELECT `id` FROM `terms` WHERE `calculated` = '0' LIMIT 100 OFFSET {$offset}) AS `u`
 		INNER JOIN `terms` AS `t` ON `u`.`id` = `t`.`id`;"
 	);
 	$st2 = $pdo2->prepare("SELECT `id`,LOWER(`main_text`) AS `text` FROM `all_text` WHERE `main_text` LIKE :term;");

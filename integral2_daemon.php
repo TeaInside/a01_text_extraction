@@ -20,7 +20,7 @@ while (true):
 	print "Querying group_messages...";
 	$st1 = $pdo1->prepare(
 		"SELECT `t`.`group_id`,`t`.`reply_to_tmsg_id`,`t`.`text` FROM 
-			(SELECT `id` FROM `group_messages` WHERE `reply_to_tmsg_id` IS NOT NULL ORDER BY `id` ASC LIMIT 30 OFFSET {$offset}) AS `u`
+			(SELECT `id` FROM `group_messages` WHERE `reply_to_tmsg_id` IS NOT NULL ORDER BY `id` ASC LIMIT 100 OFFSET {$offset}) AS `u`
 		INNER JOIN `group_messages` AS `t` ON `u`.`id` = `t`.`id`;"
 	);
 	print "OK\n";
