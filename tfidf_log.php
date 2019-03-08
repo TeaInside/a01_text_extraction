@@ -22,7 +22,7 @@ while (true):
 	$st3 = $pdo2->prepare(
 		"INSERT INTO `tf` (`tf_hash`,`term_id`, `all_text_id`, `value`, `created_at`, `updated_at`) VALUES (:tf_hash, :term_id, :all_text_id, :value, :created_at, NULL) ON DUPLICATE KEY UPDATE `value` = :value, `updated_at` = :created_at;"
 	);
-	$st4 = $pdo2->prepare("UPDATE `term` SET `calculated` = '1', `updated_at` = :updated_at WHERE `id` = :term_id LIMIT 1;");
+	$st4 = $pdo2->prepare("UPDATE `terms` SET `calculated` = '1', `updated_at` = :updated_at WHERE `id` = :term_id LIMIT 1;");
 	$st1->execute([":now_min_1_hour" => date("Y-m-d H:i:s", time() - 3600)]);
 	print "OK\n";
 	$c = 0;
