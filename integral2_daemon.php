@@ -71,7 +71,7 @@ while (true):
 		}
 	}
 
-	$st1 = $st2 = $st3 = null;
+	$st1 = $st2 = $st3 = $st4 = null;
 	if ($c > 0) {
 		$offset += $c;
 	} else {

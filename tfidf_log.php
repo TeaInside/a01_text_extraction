@@ -15,14 +15,15 @@ while (true):
 	print "Querying terms...";
 	$st1 = $pdo2->prepare(
 		"SELECT `t`.`id`,LOWER(`t`.`term`) AS `term` FROM
-			(SELECT `id` FROM `terms` WHERE `calculated` = '0' LIMIT 100 OFFSET {$offset}) AS `u`
+			(SELECT `id` FROM `terms` WHERE `calculated` = '0' OR (`updated_at` IS NOT NULL AND `updated_at` <= :now_min_1_hour ) LIMIT 100 OFFSET {$offset}) AS `u`
 		INNER JOIN `terms` AS `t` ON `u`.`id` = `t`.`id`;"
 	);
 	$st2 = $pdo2->prepare("SELECT `id`,LOWER(`main_text`) AS `text` FROM `all_text` WHERE `main_text` LIKE :term;");
 	$st3 = $pdo2->prepare(
 		"INSERT INTO `tf` (`tf_hash`,`term_id`, `all_text_id`, `value`, `created_at`, `updated_at`) VALUES (:tf_hash, :term_id, :all_text_id, :value, :created_at, NULL) ON DUPLICATE KEY UPDATE `value` = :value, `updated_at` = :created_at;"
 	);
-	$st1->execute();
+	$st4 = $pdo2->prepare("UPDATE `term` SET `calculated` = '1', `updated_at` = :updated_at WHERE `id` = :term_id LIMIT 1;");
+	$st1->execute([":now_min_1_hour" => date("Y-m-d H:i:s", time() - 3600)]);
 	print "OK\n";
 	$c = 0;
 	while ($r = $st1->fetch(PDO::FETCH_ASSOC)) {
@@ -51,9 +52,13 @@ while (true):
 				]
 			);
 		}
+		$st4->execute([
+			":updated_at" => date("Y-m-d H:i:s"),
+			":term_id" => $r["id"]
+		]);
 		print "OK\n";
 	}
-	$st1 = $st2 = $st3 = null;
+	$st1 = $st2 = $st3 = $st4 = null;
 	
 
 	if ($c > 0) {
