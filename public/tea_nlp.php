@@ -128,6 +128,13 @@ unset($execData);
 
 if ($st = $st->fetch(PDO::FETCH_ASSOC)) {
 	print json_encode($st);
+} else {
+	print json_encode(
+		[
+			"text" => null,
+			"value" => 0
+		]
+	);
 }
 $st = $pdo2 = null;
 DB2::close();
