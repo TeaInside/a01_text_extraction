@@ -46,8 +46,8 @@ while (true):
 	$c = 0;
 	while ($r = $st1->fetch(PDO::FETCH_ASSOC)) {
 		$c++;
-		print "Collecting data...";
 		if (strlen($r["reply"]) > 0) {
+			print "Collecting data...";
 			$all_text_hash = sha1($r["msg"]);
 			$reply_hash = sha1(json_encode(
 				[
