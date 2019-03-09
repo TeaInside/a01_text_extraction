@@ -1,5 +1,5 @@
 <?php
-
+ini_set("display_errors", true);
 header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
