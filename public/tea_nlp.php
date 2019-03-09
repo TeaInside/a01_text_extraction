@@ -77,9 +77,11 @@ $i = 0;
 $execData = [];
 $unionQuery = "SELECT `r`.`text`,`q`.`value` FROM (
 	SELECT `x`.`value`,`x`.`all_text_id` FROM (";
+$cq = 0;
 foreach ($input as $k => &$v) {
 	$v = strtolower(trim(preg_replace("/[^a-z0-9]/i", "", $v)));
-	if (strlen($v) > 3) {
+	if (strlen($v) > 1) {
+		$cq++;
 		$st->execute(
 			[
 				":term" => $v,
@@ -118,6 +120,19 @@ foreach ($input as $k => &$v) {
 	}
 }
 $st = $st2 = null;
+
+if ($cq === 0) {
+	$pdo2 = null;
+	DB2::close();
+	print json_encode(
+		[
+			"text" => null,
+			"value" => 0
+		]
+	);
+	exit;
+}
+
 $unionQuery  = rtrim($unionQuery, " UNION ALL");
 $unionQuery .= ") AS `x` ORDER BY `value` DESC LIMIT 1
 ) AS `q` 
