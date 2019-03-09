@@ -67,7 +67,7 @@ if (isset($_GET["name"]) && is_string($_GET["name"])) {
 
 $input = escapeshellarg($input);
 $name = escapeshellarg($name);
-$output = trim(shell_exec("echo {$input} | /usr/bin/php -d extension=/var/app/teaai/teaai.so TeaAI.php chat --stdin-input --stdout-output --name={$name}"));
+$output = trim(shell_exec("echo {$input} | /usr/bin/php -d extension=/var/app/teaai/teaai.so /var/app/teaai/bin/TeaAI.php chat --stdin-input --stdout-output --name={$name}"));
 
 print json_encode(
 	[
