@@ -63,6 +63,8 @@ if ($input === "") {
 
 if (isset($_GET["name"]) && is_string($_GET["name"])) {
 	$name = $_GET["name"];
+} else {
+	$name = "User";
 }
 
 $input = escapeshellarg($input);
