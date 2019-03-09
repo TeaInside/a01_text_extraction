@@ -73,6 +73,7 @@ $st = $pdo2->prepare("SELECT `me`.`text`,`me`.`score` FROM (
 ) AS `me` ORDER BY `id` ASC LIMIT 1;");
 $st->execute([":input" => $input]);
 if ($r = $st->fetch(PDO::FETCH_ASSOC)) {
+	$r["score"] = (double)$r["score"];
 	print json_encode($r);
 } else {
 	print json_encode(["text" => null, "score" => 0]);
