@@ -27,7 +27,7 @@ while (true):
 			`t`.`text` AS `reply`,	
 			`v`.`text` AS `msg`
 		FROM 
-		(SELECT `id` FROM `group_messages` WHERE `reply_to_tmsg_id` IS NOT NULL ORDER BY `id` ASC LIMIT 30 OFFSET {$offset}) AS `u`
+		(SELECT `id` FROM `group_messages` WHERE `reply_to_tmsg_id` IS NOT NULL ORDER BY `id` ASC LIMIT 500 OFFSET {$offset}) AS `u`
 		INNER JOIN `group_messages` AS `t` ON 
 			`u`.`id` = `t`.`id` 
 		INNER JOIN `group_messages` AS `v` ON
