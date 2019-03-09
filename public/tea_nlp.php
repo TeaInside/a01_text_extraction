@@ -126,6 +126,13 @@ $st = $pdo2->prepare($unionQuery);
 $st->execute($execData);
 unset($execData);
 
+if ($st = $st->fetch(PDO::FETCH_ASSOC)) {
+	print json_encode($st);
+}
+$st = $pdo2 = null;
+DB2::close();
+
+
 // SELECT `r`.`text`,`q`.`value` FROM (
 // 	SELECT `x`.`value`,`x`.`all_text_id` FROM (
 // 		(SELECT `all_text_id`, `value` FROM `tf` ORDER BY `value` DESC LIMIT 1) UNION ALL
