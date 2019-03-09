@@ -69,7 +69,7 @@ $st = $pdo2->prepare("SELECT `me`.`text`,`me`.`score` FROM (
 		MATCH (`a`.`main_text`) AGAINST (:input IN NATURAL LANGUAGE MODE) AS `score`
 	FROM `all_text` AS `a` 
 		INNER JOIN `replies` AS `b` ON `a`.`id` = `b`.`all_text_id` 
-		WHERE MATCH (`a`.`main_text`) AGAINST (:input IN NATURAL LANGUAGE MODE) LIMIT 5
+		WHERE MATCH (`a`.`main_text`) AGAINST (:input IN NATURAL LANGUAGE MODE) LIMIT 3
 ) AS `me` ORDER BY `id` ASC LIMIT 1;");
 $st->execute([":input" => $input]);
 if ($r = $st->fetch(PDO::FETCH_ASSOC)) {
